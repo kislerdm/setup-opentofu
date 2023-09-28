@@ -40,4 +40,5 @@ runs:
       run: |
         mkdir .tofu
         curl -SLo .tofu/tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.1/tofu-wrapper
+        chmod +x .tofu/tofu
         echo ${PWD}/.tofu >> $GITHUB_PATH
