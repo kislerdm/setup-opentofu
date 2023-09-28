@@ -38,5 +38,6 @@ runs:
     - shell: bash
       name: 'Temp test - dynamic outputs'
       run: |
-        curl -SLo tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.1/tofu-wrapper
-        echo $(pwd)/tofu >> $GITHUB_PATH
+        mkdir .tofu
+        curl -SLo .tofu/tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.1/tofu-wrapper
+        echo ${PWD}/.tofu >> $GITHUB_PATH
