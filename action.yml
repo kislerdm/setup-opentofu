@@ -37,12 +37,12 @@ runs:
   steps:
     - shell: bash
       name: 'Temp'
-      run: echo $GITHUB_OUTPUT
+      run: ls -lah $GITHUB_OUTPUT
 
     - shell: bash
       name: 'Temp test - dynamic outputs'
       run: |
         mkdir .tofu
-        curl -SLo .tofu/tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.3/tofu-wrapper
+        curl -SLo .tofu/tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.4/tofu-wrapper
         chmod +x .tofu/tofu
         .tofu/tofu
