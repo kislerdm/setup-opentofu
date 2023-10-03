@@ -4,31 +4,34 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
-	"os/exec"
 )
 
 func main() {
 	if err := setGithubOutput("foo", "bar"); err != nil {
-		log.Fatalf("cannot set envvar ")
+		log.Fatalf("cannot set envvar %#v", err)
 	}
 }
 
 func setGithubOutput(key, val string) error {
 	const tag = "GITHUB_OUTPUT"
-	outputPath := os.Getenv(tag)
-	if outputPath == "" {
-		cmd := exec.Command("echo", `"`+key+"="+val+`" >> $`+tag)
-		return cmd.Run()
+
+	assignment := key + "=" + val
+	out := os.Getenv(tag)
+	if out == "" {
+		cmd := "echo " + assignment + " >> " + tag
+		_, err := fmt.Fprintln(os.Stdout, cmd)
+		return err
 	}
 
-	f, err := os.OpenFile(outputPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(out, os.O_APPEND, 0644)
 	if err != nil {
 		return err
 	}
 	defer func() { _ = f.Close() }()
 
-	_, err = f.WriteString("\n" + key + "=" + val)
+	_, err = fmt.Fprintln(f, assignment)
 	return err
 }

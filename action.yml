@@ -36,9 +36,13 @@ runs:
   using: "composite"
   steps:
     - shell: bash
+      name: 'Temp'
+      run: echo $GITHUB_OUTPUT
+
+    - shell: bash
       name: 'Temp test - dynamic outputs'
       run: |
         mkdir .tofu
-        curl -SLo .tofu/tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.1/tofu-wrapper
+        curl -SLo .tofu/tofu https://github.com/kislerdm/setup-opentofu/releases/download/v0.0.1-alpha.3/tofu-wrapper
         chmod +x .tofu/tofu
-        echo ${PWD}/.tofu >> $GITHUB_PATH
+        .tofu/tofu
